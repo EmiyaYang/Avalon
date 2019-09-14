@@ -60,18 +60,20 @@ module.exports = {
   router: {
     // 修改routes以适配命名视图
     extendRoutes(routes, resolve) {
-      // 配置index
-      const index = routes.findIndex((route) => route.name === 'index')
-      routes[index] = {
-        ...routes[index],
-        components: {
-          default: routes[index].component,
-          top: resolve(__dirname, 'components/NavBar.vue')
-        },
-        chunkNames: {
-          top: 'components/NavBar'
-        }
-      }
+      // 给指定路由添加命名视图
+      routes
+        .filter((route) => ['index', 'cv'].includes(route.name))
+        .forEach((item) => {
+          Object.assign(item, {
+            components: {
+              default: item.component,
+              top: resolve(__dirname, 'components/NavBar.vue')
+            },
+            chunkNames: {
+              top: 'components/NavBar'
+            }
+          })
+        })
     }
   }
 }

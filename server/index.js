@@ -1,11 +1,20 @@
-const Koa = require('koa')
-const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
+import Koa from 'koa'
+import consola from 'consola'
+import { Nuxt, Builder } from 'nuxt'
+import Router from 'koa-router'
+
+import config from '../nuxt.config.js'
+import apis from './apis'
 
 const app = new Koa()
 
+const router = Router()
+
+router.use('/api', apis.routes(), apis.allowedMethods())
+
+app.use(router.routes()).use(router.allowedMethods())
+
 // Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
 config.dev = app.env !== 'production'
 
 async function start() {
@@ -25,7 +34,7 @@ async function start() {
     await nuxt.ready()
   }
 
-  app.use((ctx) => {
+  app.use((ctx, next) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling
     ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash

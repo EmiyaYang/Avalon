@@ -13,7 +13,7 @@ export default {
   methods: {}
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .NavBar {
   height: 70px;
   background-color: #0c9;

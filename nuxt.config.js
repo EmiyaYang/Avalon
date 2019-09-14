@@ -56,5 +56,22 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  router: {
+    // 修改routes以适配命名视图
+    extendRoutes(routes, resolve) {
+      // 配置index
+      const index = routes.findIndex((route) => route.name === 'index')
+      routes[index] = {
+        ...routes[index],
+        components: {
+          default: routes[index].component,
+          top: resolve(__dirname, 'components/NavBar.vue')
+        },
+        chunkNames: {
+          top: 'components/NavBar'
+        }
+      }
+    }
   }
 }

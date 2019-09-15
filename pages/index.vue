@@ -55,7 +55,6 @@ export default {
 <style lang="scss">
 .root {
   margin: 0 auto;
-
   padding-top: 100px;
   max-width: 700px;
   margin: 0 auto;

@@ -1,0 +1,23 @@
+@charset "utf-8";
+@import './variables'; /*引入配置*/
+
+@mixin fontColor() {
+  /*通过该函数设置字体颜色，后期方便统一管理；*/
+  color: $fontColorTheme1;
+  [data-theme='theme1'] & {
+    color: $fontColorTheme1;
+  }
+  [data-theme='theme2'] & {
+    color: $fontColorTheme2;
+  }
+}
+
+@mixin backColor() {
+  background-color: $backColorTheme1;
+  [data-theme='theme1'] & {
+    background-color: $backColorTheme1;
+  }
+  [data-theme='theme2'] & {
+    background-color: $backColorTheme2;
+  }
+}

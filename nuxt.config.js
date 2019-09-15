@@ -24,6 +24,10 @@ module.exports = {
    ** Global CSS
    */
   css: ['element-ui/lib/theme-chalk/index.css'],
+  styleResources: {
+    // your settings here
+    scss: ['./assets/style/mixins.scss', './assets/style/variables.scss']
+  },
   /*
    ** Plugins to load before mounting the App
    */
@@ -40,7 +44,8 @@ module.exports = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/style-resources'
   ],
   /*
    ** Axios module configuration
@@ -70,10 +75,12 @@ module.exports = {
           Object.assign(item, {
             components: {
               default: item.component,
-              top: resolve(__dirname, 'components/NavBar.vue')
+              top: resolve(__dirname, 'components/NavBar.vue'),
+              asideBtn: resolve(__dirname, 'components/ThemeSwitch.vue')
             },
             chunkNames: {
-              top: 'components/NavBar'
+              top: 'components/NavBar',
+              asideBtn: 'components/ThemeSwitch'
             }
           })
         })

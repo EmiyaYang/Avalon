@@ -39,131 +39,16 @@
 
 <script>
 export default {
-  data() {
+  async asyncData({ res, req, $axios }) {
+    const tagsRes = await $axios.get('/tags')
+
+    const articlesRes = await $axios.get('/articles')
+
     return {
-      tags: [
-        { content: 'Vue', num: 4 },
-        { content: 'React', num: 4 },
-        { content: 'Angular', num: 324 },
-        { content: '数据结构', num: 100 },
-        { content: '算法', num: 10 },
-        { content: '算法', num: 10 },
-        { content: '算法', num: 10 },
-        { content: '算法', num: 10 },
-        { content: '算法', num: 10 },
-        { content: '很长很长很长很长很长', num: 1110 },
-        {
-          content:
-            '很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长',
-          num: 10
-        }
-      ],
-      articles: [
-        {
-          year: 2019,
-          children: [
-            {
-              month: 7,
-              children: [
-                { title: '七月团建', articleId: '233', day: 10 },
-                { title: 'Vue', articleId: '233123', day: 1 }
-              ]
-            },
-            {
-              month: 10,
-              children: [
-                { title: '十月团建', articleId: '233', day: 22 },
-                { title: '十月团建', articleId: '233432', day: 3 }
-              ]
-            }
-          ]
-        },
-        {
-          year: 2019,
-          children: [
-            {
-              month: 7,
-              children: [
-                { title: '七月团建', articleId: '233', day: 10 },
-                { title: 'Vue', articleId: '233123', day: 1 }
-              ]
-            },
-            {
-              month: 10,
-              children: [
-                { title: '十月团建', articleId: '233', day: 22 },
-                { title: '十月团建', articleId: '233432', day: 3 }
-              ]
-            }
-          ]
-        },
-        {
-          year: 2019,
-          children: [
-            {
-              month: 7,
-              children: [
-                { title: '七月团建', articleId: '233', day: 10 },
-                { title: 'Vue', articleId: '233123', day: 1 }
-              ]
-            },
-            {
-              month: 10,
-              children: [
-                { title: '十月团建', articleId: '233', day: 22 },
-                { title: '十月团建', articleId: '233432', day: 3 }
-              ]
-            }
-          ]
-        },
-        {
-          year: 2019,
-          children: [
-            {
-              month: 7,
-              children: [
-                { title: '七月团建', articleId: '233', day: 10 },
-                { title: 'Vue', articleId: '233123', day: 1 }
-              ]
-            },
-            {
-              month: 10,
-              children: [
-                { title: '十月团建', articleId: '233', day: 22 },
-                { title: '十月团建', articleId: '233432', day: 3 }
-              ]
-            }
-          ]
-        },
-        {
-          year: 2019,
-          children: [
-            {
-              month: 7,
-              children: [
-                { title: '七月团建', articleId: '233', day: 10 },
-                { title: 'Vue', articleId: '233123', day: 1 }
-              ]
-            },
-            {
-              month: 10,
-              children: [
-                { title: '十月团建', articleId: '233', day: 22 },
-                { title: '十月团建', articleId: '233432', day: 3 }
-              ]
-            }
-          ]
-        }
-      ]
+      tags: tagsRes.data.data.tags,
+      articles: articlesRes.data.data.articles
     }
   }
-
-  // async asyncData({ res, req, $axios }) {
-  //   // eslint-disable-next-line no-console
-
-  //   const ip = await $axios.$get('http://localhost:3000/test')
-  //   return { ip: '123', ip2: ip }
-  // }
 }
 </script>
 

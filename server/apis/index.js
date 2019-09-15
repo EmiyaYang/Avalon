@@ -1,12 +1,13 @@
 import Router from 'koa-router'
 
+import routers from './routers'
+
 const router = new Router()
 
-router.get('/articles', (ctx) => {
-  ctx.status = 200
-  ctx.body = {
-    data: {}
-  }
+Object.keys(routers).forEach((key) => {
+  const value = routers[key]
+
+  router.use('/api', value.routes(), value.allowedMethods())
 })
 
 export default router

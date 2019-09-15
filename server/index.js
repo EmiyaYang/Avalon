@@ -1,18 +1,13 @@
 import Koa from 'koa'
 import consola from 'consola'
 import { Nuxt, Builder } from 'nuxt'
-import Router from 'koa-router'
 
 import config from '../nuxt.config.js'
 import apis from './apis'
 
 const app = new Koa()
 
-const router = Router()
-
-router.use('/api', apis.routes(), apis.allowedMethods())
-
-app.use(router.routes()).use(router.allowedMethods())
+app.use(apis.routes()).use(apis.allowedMethods())
 
 // Import and Set Nuxt.js options
 config.dev = app.env !== 'production'

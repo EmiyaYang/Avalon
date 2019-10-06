@@ -109,4 +109,14 @@ router.get('/articles', (ctx) => {
   }
 })
 
+router.get('/article/:id', (ctx) => {
+  ctx.status = 200
+
+  ctx.body = {
+    data: {
+      content: '#Hello world'
+    }
+  }
+})
+
 export default router

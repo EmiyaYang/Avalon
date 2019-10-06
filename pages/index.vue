@@ -24,12 +24,15 @@
         >
           <p class="articleGroup__monthList__title">{{ mItem.month }}</p>
           <ul class="articleGroup__dayList">
-            <li
+            <NuxtLink
               v-for="(dItem, dIndex) in mItem.children"
               :key="`year-${index}-month-${mIndex}-day-${dIndex}`"
+              :to="{ name: 'articles-id', params: { id: dItem.articleId } }"
+              tag="li"
+              class="articleGroup__dayList__item"
             >
               {{ `${dItem.day}-${dItem.title}` }}
-            </li>
+            </NuxtLink>
           </ul>
         </ul>
       </div>
@@ -96,6 +99,10 @@ export default {
   }
   &__dayList {
     padding: 0.5rem 2rem;
+
+    &__item {
+      cursor: pointer;
+    }
   }
 }
 </style>

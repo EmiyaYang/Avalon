@@ -70,7 +70,7 @@ module.exports = {
     extendRoutes(routes, resolve) {
       // 给指定路由添加命名视图
       routes
-        .filter((route) => ['index', 'cv'].includes(route.name))
+        .filter((route) => ['index', 'cv', 'articles-id'].includes(route.name))
         .forEach((item) => {
           Object.assign(item, {
             components: {

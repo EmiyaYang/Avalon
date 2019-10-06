@@ -85,5 +85,14 @@ module.exports = {
           })
         })
     }
+  },
+  // /****************** 以下非Nuxt官方配置 *************************/
+  /*
+   ** mongoose驱动配置
+   */
+  db: {
+    port: 3333, // 项目启动的端口
+    uris: 'mongodb://localhost:27017/co-ground', // 数据库
+    saltTimes: 3 // 加盐的次数（用户密码加密）
   }
 }

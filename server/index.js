@@ -1,11 +1,22 @@
+/* eslint-disable no-console */
 import Koa from 'koa'
 import consola from 'consola'
+import mongoose from 'mongoose'
 import { Nuxt, Builder } from 'nuxt'
 
 import config from '../nuxt.config.js'
 import apis from './apis'
 
 const app = new Koa()
+
+// 连接到数据库
+mongoose.connect(config.db.uris, { useNewUrlParser: true }, (err) => {
+  if (err) {
+    console.error('Failed to connect to database')
+  } else {
+    console.log('Connecting database successfully')
+  }
+})
 
 app.use(apis.routes()).use(apis.allowedMethods())
 

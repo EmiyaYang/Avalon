@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <section class="root">
     <section class="root__tagGroup tagGroup">
       <div
         v-for="(item, index) in tags"
@@ -12,36 +12,46 @@
     <hr class="root__hr" />
     <section class="root__articleGroup articleGroup">
       <div
-        v-for="(item, index) in articles"
+        v-for="(year, index) in articlesTL"
         :key="`year-${index}`"
         class="articleGroup__yearList"
       >
-        <p class="articleGroup__yearList__title">{{ item.year }}</p>
+        <p class="articleGroup__yearList__title">{{ index }}</p>
         <ul
-          v-for="(mItem, mIndex) in item.children"
+          v-for="(month, mIndex) in year"
           :key="`year-${index}-month-${mIndex}`"
           class="articleGroup__monthList"
         >
-          <p class="articleGroup__monthList__title">{{ mItem.month }}</p>
+          <p class="articleGroup__monthList__title">{{ mIndex }}</p>
           <ul class="articleGroup__dayList">
             <NuxtLink
-              v-for="(dItem, dIndex) in mItem.children"
+              v-for="(day, dIndex) in month"
               :key="`year-${index}-month-${mIndex}-day-${dIndex}`"
-              :to="{ name: 'articles-id', params: { id: dItem.articleId } }"
+              :to="{ name: 'articles-id', params: { id: day.id } }"
               tag="li"
               class="articleGroup__dayList__item"
             >
-              {{ `${dItem.day}-${dItem.title}` }}
+              {{ `${dIndex}-${day.title}` }}
             </NuxtLink>
           </ul>
         </ul>
       </div>
     </section>
-  </div>
+  </section>
 </template>
 
 <script>
+import { timelineSerial } from '@/utils'
+
 export default {
+  computed: {
+    articlesTL() {
+      if (!this.articles) return {}
+
+      return timelineSerial(this.articles)
+    }
+  },
+
   async asyncData({ res, req, $axios }) {
     const tagsRes = await $axios.get('/tags')
 

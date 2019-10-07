@@ -92,7 +92,7 @@ module.exports = {
    */
   db: {
     port: 3333, // 项目启动的端口
-    uris: 'mongodb://localhost:27017/co-ground', // 数据库
+    uris: 'mongodb://localhost:27017/myblog', // 数据库
     saltTimes: 3 // 加盐的次数（用户密码加密）
   }
 }

@@ -16,7 +16,9 @@ export function timelineSerial(list) {
 
       if (!timelineMap[year][month]) timelineMap[year][month] = {}
 
-      timelineMap[year][month][day] = item
+      if (!timelineMap[year][month][day]) timelineMap[year][month][day] = []
+
+      timelineMap[year][month][day].push(item)
     })
   } catch (e) {
     throw new Error(e)

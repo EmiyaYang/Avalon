@@ -10,7 +10,22 @@
       </div>
     </section>
     <hr class="root__hr" />
-    <section class="root__articleGroup articleGroup">
+
+    <section class="root__toolbar">
+      <label>
+        <span>时间轴</span>
+        <input v-model="viewType" type="radio" value="timeline" />
+      </label>
+      <label>
+        <span>列表</span>
+        <input v-model="viewType" type="radio" value="list" />
+      </label>
+    </section>
+
+    <section
+      v-show="viewType === 'timeline'"
+      class="root__articleGroup articleGroup"
+    >
       <div
         v-for="(year, index) in articlesTL"
         :key="`year-${index}`"
@@ -24,18 +39,39 @@
         >
           <p class="articleGroup__monthList__title">{{ mIndex }}</p>
           <ul class="articleGroup__dayList">
-            <NuxtLink
-              v-for="(day, dIndex) in month"
+            <ul
+              v-for="(dayList, dIndex) in month"
               :key="`year-${index}-month-${mIndex}-day-${dIndex}`"
-              :to="{ name: 'articles-id', params: { id: day.id } }"
-              tag="li"
-              class="articleGroup__dayList__item"
             >
-              {{ `${dIndex}-${day.title}` }}
-            </NuxtLink>
+              <NuxtLink
+                v-for="(day, i) in dayList"
+                :key="`year-${index}-month-${mIndex}-day-${dIndex}-${i}`"
+                :to="{ name: 'articles-id', params: { id: day.id } }"
+                tag="li"
+                class="articleGroup__dayList__item"
+              >
+                {{ `${dIndex}-${day.title}` }}
+              </NuxtLink>
+            </ul>
           </ul>
         </ul>
       </div>
+    </section>
+
+    <section
+      v-show="viewType === 'list'"
+      class="root__articleGroup articleGroup"
+    >
+      <ul>
+        <NuxtLink
+          v-for="(item, index) in articles"
+          :key="'article' + index"
+          tag="li"
+          :to="{ name: 'articles-id', params: { id: item.id } }"
+        >
+          {{ item.title }}
+        </NuxtLink>
+      </ul>
     </section>
   </section>
 </template>
@@ -44,6 +80,11 @@
 import { timelineSerial } from '@/utils'
 
 export default {
+  data() {
+    return {
+      viewType: 'timeline'
+    }
+  },
   computed: {
     articlesTL() {
       if (!this.articles) return {}

@@ -1,7 +1,11 @@
-import timelineSerial from '@/utils'
+import { timelineSerial } from '@/utils'
 
 describe('test', () => {
+  test('execptions', () => {
+    expect(timelineSerial).toThrow(TypeError)
+  })
+
   test('basic', () => {
-    expect(timelineSerial(null)).toThrow(TypeError)
+    expect(timelineSerial([])).toEqual({})
   })
 })

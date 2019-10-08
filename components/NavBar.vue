@@ -1,21 +1,63 @@
 <template>
-  <nav class="NavBar">
-    <NuxtLink class="NavBar__item" to="/">首页</NuxtLink>
-    <NuxtLink class="NavBar__item" to="/cv">关于</NuxtLink>
+  <nav class="nav-bar" :class="{ 'nav-bar--hidden': hidden }">
+    <NuxtLink class="nav-bar__item" to="/">首页</NuxtLink>
+    <NuxtLink class="nav-bar__item" to="/cv">关于</NuxtLink>
   </nav>
 </template>
 
 <script>
 export default {
   data() {
-    return {}
+    return {
+      hidden: false,
+      listener: null
+    }
   },
 
-  methods: {}
+  mounted() {
+    this.register()
+  },
+
+  methods: {
+    register() {
+      let ticking = false
+      let lastY = 0
+
+      const step = () => {
+        const currentY =
+          window.pageYoffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop
+
+        this.hidden = currentY > lastY
+
+        lastY = currentY
+      }
+
+      this.listener = () => {
+        if (ticking) return
+
+        ticking = true
+
+        window.requestAnimationFrame
+          ? window.requestAnimationFrame(step)
+          : setTimeout(step, 250)
+
+        ticking = false
+      }
+
+      window.addEventListener('scroll', this.listener)
+    },
+
+    cancel() {
+      window.removeEventListener('scroll', this.listener)
+      this.listener = null
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-.NavBar {
+.nav-bar {
   height: 60px;
   line-height: 60px;
   padding: 0 22.5px;
@@ -25,6 +67,12 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
+  transition: height 1s ease;
+
+  &--hidden {
+    height: 0;
+  }
 
   &__item {
     color: inherit;

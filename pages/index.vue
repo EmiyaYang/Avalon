@@ -20,6 +20,7 @@
 
     <section
       v-show="viewType === 'timeline'"
+      v-loading="loading"
       class="root__articleGroup articleGroup"
     >
       <div
@@ -84,7 +85,8 @@ export default {
   data() {
     return {
       viewType: 'timeline',
-      selectedTags: []
+      selectedTags: [],
+      loading: false
     }
   },
   computed: {
@@ -114,18 +116,17 @@ export default {
 
   methods: {
     async query() {
+      this.loading = true
+
       const [err, res] = await to(
         this.$axios.get('/articles', {
           params: {
             tags: this.selectedTags + ''
           }
-          // paramsSerializer: (params) => {
-          //   return qs.stringify(params, {
-          //     arrayFormat: 'repeat'
-          //   })
-          // }
         })
       )
+
+      this.loading = false
 
       if (err) {
         // eslint-disable-next-line no-console

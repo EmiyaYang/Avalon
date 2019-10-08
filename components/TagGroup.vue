@@ -1,16 +1,23 @@
 <template>
-  <section class="tag-grounp">
+  <section class="tag-group">
     <div
       v-for="(item, index) in renderMap"
       :key="`tag-${index}`"
-      class="tag-grounp__item"
-      :class="{ 'tag-grounp__item--selected': item.checked }"
+      class="tag-group__item"
+      :class="{ 'tag-group__item--selected': item.checked }"
       @click="handleTagClick(index)"
     >
       {{ `${index}(${item.num})` }}
 
       <input type="checkbox" :checked="item.checked" :value="index" hidden />
     </div>
+    <button
+      v-show="value.length > 0"
+      class="tag-group__cancel"
+      @click="handleCancel"
+    >
+      ×
+    </button>
   </section>
 </template>
 
@@ -59,18 +66,23 @@ export default {
       } else {
         this.$emit('change', [...this.value, key])
       }
+    },
+    handleCancel() {
+      this.$emit('change', [])
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.tag-grounp {
+.tag-group {
   display: flex;
   flex-wrap: wrap;
+  font-size: 12px;
 
   &__item {
     display: inline-block;
     padding: 6px;
+    margin: 5px;
     cursor: pointer;
     border-radius: 1em;
     border: 2px dashed grey;
@@ -79,6 +91,18 @@ export default {
       background: grey;
       color: white;
     }
+  }
+
+  &__cancel {
+    text-align: center;
+    line-height: 2em;
+    height: 2em;
+    width: 100%;
+    cursor: pointer;
+    background: #ccc;
+    color: white;
+    border: none;
+    outline: none;
   }
 }
 </style>

@@ -1,31 +1,45 @@
 <template>
   <section class="root">
-    <h1>文章详情页</h1>
-    <section>
-      {{ content }}
+    <Markdown class="root__content" :value="content" />
+
+    <section class="root__status">
+      <div class="root__status__tags">
+        <Tag v-for="(item, index) in tags" :key="'tag:' + index">
+          {{ item.name }}
+        </Tag>
+      </div>
     </section>
   </section>
 </template>
 
 <script>
+import Tag from '@/components/Tag'
+import Markdown from '@/components/Markdown'
+
 export default {
-  data() {
-    return {}
+  components: {
+    Tag,
+    Markdown
   },
 
   async asyncData({ route, params, res, req, $axios }) {
     const { id } = params
 
     if (!id) {
-      return {}
+      return {
+        id: '',
+        content: ''
+      }
     }
 
     // eslint-disable-next-line handle-callback-err
-    const article = await $axios.get(`/article/${params.id}`)
+    const { data } = await $axios.get(`/article/${params.id}`)
 
     return {
       id,
-      content: article.data.content
+      title: data.title || '',
+      content: data.content.replace(/\n/gm, '<br/>') || '',
+      tags: data.tags || []
     }
   },
 
@@ -36,4 +50,10 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.root {
+  &__status {
+    padding: 1em 0;
+  }
+}
+</style>

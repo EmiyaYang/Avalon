@@ -22,6 +22,7 @@ html {
 .wrapper {
   @include fontColor;
   @include backColor;
+  min-height: 100vh;
 }
 
 *,

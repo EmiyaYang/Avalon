@@ -1,14 +1,10 @@
 <template>
   <section class="root">
-    <section class="root__tagGroup tagGroup">
-      <div
-        v-for="(item, index) in tags"
-        :key="`tag-${index}`"
-        class="root__tagGroup__item"
-      >
-        {{ `${item.content}(${item.num})` }}
-      </div>
-    </section>
+    <TagGroup
+      v-model="selectedTags"
+      :tags="tags"
+      class="root__tagGroup"
+    ></TagGroup>
     <hr class="root__hr" />
 
     <section class="root__toolbar">
@@ -77,12 +73,18 @@
 </template>
 
 <script>
-import { timelineSerial } from '@/utils'
+import { timelineSerial, to } from '@/utils'
+
+import TagGroup from '@/components/TagGroup'
 
 export default {
+  components: {
+    TagGroup
+  },
   data() {
     return {
-      viewType: 'timeline'
+      viewType: 'timeline',
+      selectedTags: []
     }
   },
   computed: {
@@ -93,14 +95,45 @@ export default {
     }
   },
 
+  watch: {
+    selectedTags(val) {
+      this.query()
+    }
+  },
+
   async asyncData({ res, req, $axios }) {
     const tagsRes = await $axios.get('/tags')
 
     const articlesRes = await $axios.get('/articles')
 
     return {
-      tags: tagsRes.data.data.tags,
-      articles: articlesRes.data.data.articles
+      tags: tagsRes.data.tags,
+      articles: articlesRes.data.articles
+    }
+  },
+
+  methods: {
+    async query() {
+      const [err, res] = await to(
+        this.$axios.get('/articles', {
+          params: {
+            tags: this.selectedTags + ''
+          }
+          // paramsSerializer: (params) => {
+          //   return qs.stringify(params, {
+          //     arrayFormat: 'repeat'
+          //   })
+          // }
+        })
+      )
+
+      if (err) {
+        // eslint-disable-next-line no-console
+        console.warn(err)
+        return err
+      }
+
+      this.articles = res.data.articles
     }
   }
 }
@@ -112,16 +145,6 @@ export default {
   padding-top: 100px;
   max-width: 700px;
   margin: 0 auto;
-
-  &__tagGroup {
-    display: flex;
-    flex-wrap: wrap;
-
-    &__item {
-      display: inline-block;
-      padding: 6px;
-    }
-  }
 
   &__hr {
     margin-top: 1rem;

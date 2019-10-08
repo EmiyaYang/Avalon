@@ -2,6 +2,7 @@
 import Koa from 'koa'
 import consola from 'consola'
 import mongoose from 'mongoose'
+import bodyParser from 'koa-bodyparser'
 import { Nuxt, Builder } from 'nuxt'
 
 import config from '../nuxt.config.js'
@@ -18,6 +19,7 @@ mongoose.connect(config.db.uris, { useNewUrlParser: true }, (err) => {
   }
 })
 
+app.use(bodyParser())
 app.use(apis.routes()).use(apis.allowedMethods())
 
 // Import and Set Nuxt.js options

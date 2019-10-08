@@ -5,6 +5,10 @@ const schema = new mongoose.Schema(
     name: {
       type: String,
       maxlength: 10
+    },
+    num: {
+      type: Number,
+      default: 0
     }
   },
   {
@@ -13,5 +17,7 @@ const schema = new mongoose.Schema(
     versionKey: false // 不需要 __v 字段，默认是加上的
   }
 )
+
+schema.set('toJSON', { virtuals: true })
 
 export default mongoose.model('Tag', schema)

@@ -26,3 +26,9 @@ export function timelineSerial(list) {
 
   return timelineMap
 }
+
+export function to(p) {
+  if (!(p instanceof Promise)) throw new TypeError('Promise instance required')
+
+  return p.then((data) => [null, data]).catch((err) => [err, null])
+}

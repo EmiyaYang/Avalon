@@ -20,11 +20,12 @@ export default {
       return {}
     }
 
+    // eslint-disable-next-line handle-callback-err
     const article = await $axios.get(`/article/${params.id}`)
 
     return {
       id,
-      content: article.data.data.content
+      content: article.data.content
     }
   },
 

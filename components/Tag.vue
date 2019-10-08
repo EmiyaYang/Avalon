@@ -14,8 +14,8 @@ export default {}
   border-radius: 1em;
   display: inline-block;
   padding: 0 1em;
-  line-height: 1.5em;
-  height: 1.5em;
+  line-height: 2em;
+  height: 2em;
   color: white;
 }
 </style>

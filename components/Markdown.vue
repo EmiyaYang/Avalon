@@ -44,8 +44,19 @@ export default {
     font-size: 2em;
   }
 
-  p {
-    margin: 1em 0;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  ul,
+  ol {
+    margin-bottom: 0.7em;
+  }
+
+  img {
+    max-width: 100%;
   }
 
   blockquote {
@@ -57,6 +68,7 @@ export default {
 
   a {
     text-decoration: none;
+    color: deepskyblue;
   }
 }
 </style>

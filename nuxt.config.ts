@@ -23,7 +23,8 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['ant-design-vue/dist/antd.css'],
+  css: ['ant-design-vue/dist/antd.css', '@/assets/styles/global.css'],
+
   /*
    ** Plugins to load before mounting the App
    */
@@ -44,8 +45,14 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // 支持在 layouts, components, plugins 和 middlewares 中使用 TypeScript
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    // https://nuxtjs.org/api/configuration-build/#styleresources
+    '@nuxtjs/style-resources'
   ],
+  styleResources: {
+    // You cannot use path aliases here (~ and @), you need to use relative or absolute paths.
+    scss: ['./assets/styles/mixins.scss', './assets/styles/variables.scss']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

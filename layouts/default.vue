@@ -1,55 +1,57 @@
 <template>
-  <div>
+  <article class="root">
+    <header class="root-header">
+      <section class="root-header__titles">
+        <h1>Avalon</h1>
+        <h2>个人技术笔记整理与分享</h2>
+      </section>
+      <section class="root-header-nav">
+        <ul class="root-header-nav__ul">
+          <nuxt-link tag="li" to="/">
+            主页
+          </nuxt-link>
+          <nuxt-link tag="li" to="/about">
+            关于我
+          </nuxt-link>
+        </ul>
+      </section>
+    </header>
+
     <nuxt />
-  </div>
+  </article>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<style lang="scss" scoped>
+.root {
+  &-header {
+    background-color: #e3eaf9;
+    &__titles {
+      padding: 20px 0;
+      width: $containerWidth;
+      margin: 0 auto;
+    }
+    &-nav {
+      background-color: #6389e1;
+      line-height: 47px;
+      height: 47px;
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+      &__ul {
+        width: $containerWidth;
+        margin: 0 auto;
+        padding: 0;
+        text-decoration: none;
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+        li {
+          display: inline;
+          cursor: pointer;
+          padding: 0 10px;
+        }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+        .nuxt-link-exact-active {
+          color: white;
+        }
+      }
+    }
+  }
 }
 </style>

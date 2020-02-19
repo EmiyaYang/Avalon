@@ -42,7 +42,9 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // 支持在 layouts, components, plugins 和 middlewares 中使用 TypeScript
+    '@nuxt/typescript-build'
   ],
   /*
    ** Axios module configuration
@@ -56,6 +58,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    // extend(config, ctx) {}
   }
 }

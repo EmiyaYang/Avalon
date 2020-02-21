@@ -32,7 +32,7 @@ export default {
    */
   styleResources: {
     // You cannot use path aliases here (~ and @), you need to use relative or absolute paths.
-    scss: ['./assets/styles/mixins.scss', './assets/styles/variables.scss']
+    less: ['./assets/styles/mixins.less', './assets/styles/variables.less']
     // less: ['ant-design-vue/dist/antd.less']
   },
   /*

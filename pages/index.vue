@@ -14,9 +14,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .container {
-  width: $containerWidth;
+  width: @containerWidth;
   margin: 0 auto;
 }
 

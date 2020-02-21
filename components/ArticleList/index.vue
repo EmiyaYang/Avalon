@@ -92,7 +92,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .article-list {
   padding-top: 10px;
 

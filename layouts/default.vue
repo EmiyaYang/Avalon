@@ -21,22 +21,22 @@
   </article>
 </template>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .root {
   &-header {
     background-color: #e3eaf9;
     &__titles {
       padding: 20px 0;
-      width: $containerWidth;
+      width: @containerWidth;
       margin: 0 auto;
     }
     &-nav {
-      background-color: #6389e1;
+      background-color: @primary-color;
       line-height: 47px;
       height: 47px;
 
       &__ul {
-        width: $containerWidth;
+        width: @containerWidth;
         margin: 0 auto;
         padding: 0;
         text-decoration: none;

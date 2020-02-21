@@ -21,14 +21,24 @@ export default {
    */
   loading: { color: '#fff' },
   /*
-   ** Global CSS
+   ** Global CSS, included in every pages
+   * https://nuxtjs.org/api/configuration-css#the-css-property
    */
-  css: ['ant-design-vue/dist/antd.css', '@/assets/styles/global.css'],
+  css: ['@/assets/styles/global.css', 'ant-design-vue/dist/antd.less'],
 
+  /**
+   * inject some variables and mixins
+   * https://nuxtjs.org/api/configuration-build/#styleresources
+   */
+  styleResources: {
+    // You cannot use path aliases here (~ and @), you need to use relative or absolute paths.
+    scss: ['./assets/styles/mixins.scss', './assets/styles/variables.scss']
+    // less: ['ant-design-vue/dist/antd.less']
+  },
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/antd-ui'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/filters'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -49,10 +59,6 @@ export default {
     // https://nuxtjs.org/api/configuration-build/#styleresources
     '@nuxtjs/style-resources'
   ],
-  styleResources: {
-    // You cannot use path aliases here (~ and @), you need to use relative or absolute paths.
-    scss: ['./assets/styles/mixins.scss', './assets/styles/variables.scss']
-  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -62,9 +68,31 @@ export default {
    ** Build configuration
    */
   build: {
+    // 导入 antd-vue 的样式文件
+    // https://github.com/vueComponent/ant-design-vue/issues/234#issuecomment-466308850
+    loaders: {
+      less: {
+        javascriptEnabled: true,
+        modifyVars: {
+          'primary-color': 'rgba(222, 12, 101, 1.0)',
+          'component-background': '#ffffff'
+        }
+      }
+    }
     /*
      ** You can extend webpack config here
      */
-    // extend(config, ctx) {}
+    // extend(
+    //   _config: any,
+    //   ctx: { isClient: boolean; loaders: { vue: any; less: any } }
+    // ) {
+    // ctx.loaders.less.javascriptEnabled = true
+    // ctx.loaders.less.modifyVars = {
+    //   'primary-color': 'tomato'
+    // }
+    // Extend only webpack config for client-bundle
+    // if (ctx.isClient) {
+    // }
+    //   }
   }
 }

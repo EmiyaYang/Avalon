@@ -45,10 +45,12 @@
           display: inline;
           cursor: pointer;
           padding: 0 10px;
+          color: white;
         }
 
         .nuxt-link-exact-active {
-          color: white;
+          color: black;
+          cursor: unset;
         }
       }
     }

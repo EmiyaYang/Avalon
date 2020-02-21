@@ -1,47 +1,23 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        Avalon
-      </h1>
-      <h2 class="subtitle">
-        My perfect Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <section class="container">
+    <ArticleList class="container__list" />
+  </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import ArticleList from '@/components/ArticleList'
 
 export default {
   components: {
-    Logo
+    ArticleList
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .container {
+  width: $containerWidth;
   margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .title {

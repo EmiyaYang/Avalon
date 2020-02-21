@@ -20,6 +20,8 @@ module.exports = {
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    // 重复定义了 @typescript-eslint/no-unused-vars
+    'no-unused-vars': 0
   }
 }

@@ -5,11 +5,9 @@ export function getConfig() {
   return {
     tagsOptions: [
       {
-        $label: '测试',
         value: 'hah'
       },
       {
-        $label: 'CSS',
         value: 'css'
       }
     ]

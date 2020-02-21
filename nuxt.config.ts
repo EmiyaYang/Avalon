@@ -72,9 +72,10 @@ export default {
     // https://github.com/vueComponent/ant-design-vue/issues/234#issuecomment-466308850
     loaders: {
       less: {
+        // less 文件有行内 js, 这里需要手动开启以支持
         javascriptEnabled: true,
         modifyVars: {
-          'primary-color': 'rgba(222, 12, 101, 1.0)',
+          'primary-color': '#6389e1',
           'component-background': '#ffffff'
         }
       }

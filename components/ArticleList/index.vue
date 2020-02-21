@@ -8,7 +8,7 @@
       >
         <template #label="option">
           <a-tag class="checkbox-tag">
-            {{ option.$label }}
+            {{ option.value }}
           </a-tag>
         </template>
       </a-checkbox-group>
@@ -21,17 +21,30 @@
 
     <section class="article-list-body">
       <a-list item-layout="horizontal" :data-source="dataSource">
-        <a-list-item slot="renderItem" slot-scope="item">
-          <a-list-item-meta
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-          >
-            <a slot="title" href="https://www.antdv.com/">{{ item.title }}</a>
-            <a-avatar
-              slot="avatar"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
-          </a-list-item-meta>
-        </a-list-item>
+        <template #renderItem="item">
+          <a-list-item>
+            <a-list-item-meta :description="item.description">
+              <template #title>
+                <section class="list-item-header">
+                  <a
+                    class="list-item-header__title"
+                    href="https://www.antdv.com/"
+                  >
+                    {{ item.title }}
+                  </a>
+                  <section class="list-item-header__tags">
+                    <a-tag v-for="tag in item.tags" :key="tag">
+                      {{ tag }}
+                    </a-tag>
+                  </section>
+                  <span class="list-item-header__time">{{
+                    item.modifyTime | moment('YYYY-MM-DD')
+                  }}</span>
+                </section>
+              </template>
+            </a-list-item-meta>
+          </a-list-item>
+        </template>
       </a-list>
     </section>
   </section>
@@ -53,7 +66,11 @@ export default {
       tagsOptions: [],
       dataSource: [
         {
-          title: 'Ant Design Title 1'
+          title: 'Ant Design Title 1',
+          tags: ['css', 'js'],
+          modifyTime: 1582268795162,
+          description:
+            'Ant Design, a design language for background applications, is refined by Ant UED Team'
         },
         {
           title: 'Ant Design Title 2'
@@ -124,6 +141,19 @@ export default {
       opacity: 1;
       cursor: unset;
     }
+  }
+}
+
+.list-item-header {
+  display: flex;
+
+  &__tags {
+    flex-grow: 1;
+    padding: 0 10px;
+  }
+
+  &__time {
+    color: rgba(0, 0, 0, 0.45);
   }
 }
 </style>

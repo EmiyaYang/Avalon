@@ -1,5 +1,10 @@
 export default {
+  dev: true,
   mode: 'universal',
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0' // default: localhost
+  },
   /*
    ** Headers of the page
    */
@@ -42,7 +47,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/antd-ui', '@/plugins/filters'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/filters', '@/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -77,8 +82,8 @@ export default {
     loaders: {
       less: {
         // less 文件有行内 js, 这里需要手动开启以支持
-        javascriptEnabled: true
         // 可覆盖变量详见: https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less
+        javascriptEnabled: true
         // modifyVars: {
         //   'primary-color': '#6389e1',
         // }

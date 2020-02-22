@@ -17,7 +17,9 @@
       </section>
     </header>
 
-    <nuxt />
+    <main class="root-main">
+      <nuxt />
+    </main>
 
     <footer class="root-footer">
       Copyright © 2019-present EmiyaYang
@@ -60,12 +62,17 @@
     }
   }
 
+  &-main {
+    // FIXME:
+    min-height: calc(100vh - 187px - 70px);
+    padding-bottom: @padding-lg;
+  }
+
   &-footer {
     text-align: center;
     font-size: @font-size-sm;
     padding-top: @padding-xs;
-    margin-top: @padding-lg;
-    border-top: 1px solid hsv(0, 0, 85%);
+    border-top: @border-width-base @border-style-base @border-color-base;
     height: 70px;
   }
 }

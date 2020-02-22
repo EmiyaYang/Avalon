@@ -50,8 +50,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .container {
-  padding: @padding-lg;
-  min-height: 100vh;
+  // 触发 BFC
+  overflow: hidden;
+  margin-top: @padding-lg;
+  border-radius: @border-radius-base;
+  padding: 50px;
+  border: @border-width-base @border-style-base @border-color-base;
 
   &-header {
     &-tags {
@@ -61,13 +65,16 @@ export default {
 
   &-main {
     line-height: 1.5;
-    font-size: 18px;
+    font-size: @font-size-lg;
+    padding-bottom: @padding-lg;
   }
 
   &-footer {
     display: flex;
     align-items: center;
     font-size: @font-size-sm;
+    padding-top: @padding-xs;
+    border-top: @border-width-base @border-style-base @border-color-base;
 
     &__views {
       flex-grow: 1;

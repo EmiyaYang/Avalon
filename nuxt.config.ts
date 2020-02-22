@@ -24,7 +24,7 @@ export default {
    ** Global CSS, included in every pages
    * https://nuxtjs.org/api/configuration-css#the-css-property
    */
-  css: ['@/assets/styles/global.css', 'ant-design-vue/dist/antd.less'],
+  css: ['@/assets/styles/global.css'],
 
   /**
    * inject some variables and mixins
@@ -32,7 +32,11 @@ export default {
    */
   styleResources: {
     // You cannot use path aliases here (~ and @), you need to use relative or absolute paths.
-    less: ['./assets/styles/mixins.less', './assets/styles/variables.less']
+    less: [
+      './assets/styles/mixins.less',
+      './assets/styles/variables.less',
+      './assets/styles/antd.less'
+    ]
     // less: ['ant-design-vue/dist/antd.less']
   },
   /*
@@ -73,15 +77,11 @@ export default {
     loaders: {
       less: {
         // less 文件有行内 js, 这里需要手动开启以支持
-        javascriptEnabled: true,
+        javascriptEnabled: true
         // 可覆盖变量详见: https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less
-        modifyVars: {
-          'primary-color': '#6389e1',
-          'component-background': '#ffffff',
-          'padding-xs': '8px',
-          'padding-lg': '24px',
-          'font-size-sm': '12px'
-        }
+        // modifyVars: {
+        //   'primary-color': '#6389e1',
+        // }
       }
     }
     /*

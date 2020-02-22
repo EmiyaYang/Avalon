@@ -26,12 +26,18 @@
             <a-list-item-meta :description="item.description">
               <template #title>
                 <section class="list-item-header">
-                  <a
+                  <nuxt-link
+                    class="list-item-header__title"
+                    :to="{ name: 'articles-id', params: { id: item.id } }"
+                  >
+                    {{ item.title }}
+                  </nuxt-link>
+                  <!-- <a
                     class="list-item-header__title"
                     href="https://www.antdv.com/"
                   >
                     {{ item.title }}
-                  </a>
+                  </a> -->
                   <section class="list-item-header__tags">
                     <a-tag v-for="tag in item.tags" :key="tag">
                       {{ tag }}
@@ -66,6 +72,7 @@ export default {
       tagsOptions: [],
       dataSource: [
         {
+          id: 123,
           title: 'Ant Design Title 1',
           tags: ['css', 'js'],
           modifyTime: 1582268795162,
@@ -73,12 +80,15 @@ export default {
             'Ant Design, a design language for background applications, is refined by Ant UED Team'
         },
         {
+          id: 1,
           title: 'Ant Design Title 2'
         },
         {
+          id: 2,
           title: 'Ant Design Title 3'
         },
         {
+          id: 3,
           title: 'Ant Design Title 4'
         }
       ]

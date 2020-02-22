@@ -18,6 +18,10 @@
     </header>
 
     <nuxt />
+
+    <footer class="root-footer">
+      Copyright © 2019-present EmiyaYang
+    </footer>
   </article>
 </template>
 
@@ -26,7 +30,7 @@
   &-header {
     background-color: #e3eaf9;
     &__titles {
-      padding: 20px 0;
+      padding: @padding-lg 0;
       width: @containerWidth;
       margin: 0 auto;
     }
@@ -44,7 +48,7 @@
         li {
           display: inline;
           cursor: pointer;
-          padding: 0 10px;
+          padding: 0 @padding-xs;
           color: white;
         }
 
@@ -54,6 +58,15 @@
         }
       }
     }
+  }
+
+  &-footer {
+    text-align: center;
+    font-size: @font-size-sm;
+    padding-top: @padding-xs;
+    margin-top: @padding-lg;
+    border-top: 1px solid hsv(0, 0, 85%);
+    height: 70px;
   }
 }
 </style>

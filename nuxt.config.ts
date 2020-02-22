@@ -74,9 +74,13 @@ export default {
       less: {
         // less 文件有行内 js, 这里需要手动开启以支持
         javascriptEnabled: true,
+        // 可覆盖变量详见: https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less
         modifyVars: {
           'primary-color': '#6389e1',
-          'component-background': '#ffffff'
+          'component-background': '#ffffff',
+          'padding-xs': '8px',
+          'padding-lg': '24px',
+          'font-size-sm': '12px'
         }
       }
     }

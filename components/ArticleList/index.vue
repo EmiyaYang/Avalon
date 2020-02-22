@@ -16,10 +16,11 @@
         placeholder="输入搜索关键词"
         class="search-input"
         @search="handleSearch"
+        @keydown.enter="handleSearch"
       />
     </section>
 
-    <section class="article-list-body">
+    <a-spin :spinning="loading" class="article-list-body">
       <a-list item-layout="horizontal" :data-source="dataSource">
         <template #renderItem="item">
           <a-list-item>
@@ -37,7 +38,7 @@
                     href="https://www.antdv.com/"
                   >
                     {{ item.title }}
-                  </a> -->
+                  </a-spin> -->
                   <section class="list-item-header__tags">
                     <a-tag v-for="tag in item.tags" :key="tag">
                       {{ tag }}
@@ -52,12 +53,13 @@
           </a-list-item>
         </template>
       </a-list>
-    </section>
+    </a-spin>
   </section>
 </template>
 
 <script>
 import { getConfig } from './config'
+import ghRequest from '@/api/ghRequest'
 
 /**
  * 1. 视图切换: a. 列表 b. 卡片
@@ -91,14 +93,38 @@ export default {
           id: 3,
           title: 'Ant Design Title 4'
         }
-      ]
+      ],
+      loading: false
     }
   },
   created() {
     Object.assign(this, getConfig.call(this))
+
+    this.handleSearch()
   },
   methods: {
-    handleSearch() {}
+    async handleSearch() {
+      this.loading = true
+
+      try {
+        const data = await ghRequest(`
+         query {
+          getArticles{
+              _id
+              id
+              title
+              type
+              content
+          }
+        }
+        `)
+        this.dataSource = data.getArticles
+      } catch (e) {
+        console.warn(e)
+        this.$message.error('获取列表失败')
+      }
+      this.loading = false
+    }
   }
 }
 </script>

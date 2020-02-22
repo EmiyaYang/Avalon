@@ -63,6 +63,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     // 支持在 layouts, components, plugins 和 middlewares 中使用 TypeScript
     '@nuxt/typescript-build',
     // https://nuxtjs.org/api/configuration-build/#styleresources
@@ -72,7 +73,17 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    // proxy: true
+  },
+  // proxy: {
+  //   '/graphql': {
+  //     target: 'localhost:3000'
+  //     // pathRewrite: {
+  //     //   '^/api': '/'
+  //     // }
+  //   }
+  // },
   /*
    ** Build configuration
    */

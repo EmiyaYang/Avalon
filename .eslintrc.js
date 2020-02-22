@@ -20,6 +20,8 @@ module.exports = {
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
+    // TODO: webpack 去除 console
+    'no-console': 0,
     'space-before-function-paren': 0,
     // 重复定义了 @typescript-eslint/no-unused-vars
     'no-unused-vars': 0

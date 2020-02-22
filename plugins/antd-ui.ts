@@ -1,6 +1,18 @@
 import Vue from 'vue'
-import { Tag, Button, List, Table, Form, Checkbox, Input } from 'ant-design-vue'
+import {
+  Tag,
+  Button,
+  List,
+  Table,
+  Form,
+  Checkbox,
+  Input,
+  Spin,
+  Icon
+} from 'ant-design-vue'
 
+Vue.use(Icon)
+Vue.use(Spin)
 Vue.use(Tag)
 Vue.use(Button)
 Vue.use(List)

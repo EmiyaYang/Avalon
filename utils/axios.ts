@@ -1,4 +1,4 @@
-import querystring from 'querystring'
+// import querystring from 'querystring'
 
 import axios from 'axios'
 
@@ -13,22 +13,22 @@ const ax = axios.create({
 })
 
 // 拦截器
-ax.interceptors.request.use(
-  (data) => {
-    if (
-      data.method === 'post' ||
-      data.method === 'put' ||
-      data.method === 'delete' ||
-      data.method === 'patch'
-    ) {
-      data.data = querystring.stringify(data.data)
-    }
-    return data
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+// ax.interceptors.request.use(
+//   (data) => {
+//     if (
+//       data.method === 'post' ||
+//       data.method === 'put' ||
+//       data.method === 'delete' ||
+//       data.method === 'patch'
+//     ) {
+//       data.data = querystring.stringify(data.data)
+//     }
+//     return data
+//   },
+//   (error) => {
+//     return Promise.reject(error)
+//   }
+// )
 
 ax.interceptors.response.use(
   (response) => {

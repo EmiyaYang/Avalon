@@ -1,6 +1,6 @@
 import ghRequest from '@/utils/ghRequest'
 
-export function getArticles() {
+export function getArticles(params: Object) {
   return ghRequest(
     `
          query($limit: Int) {
@@ -14,6 +14,6 @@ export function getArticles() {
           }
         }
         `,
-    { limit: 10 }
+    params
   ).then(({ getArticles }) => getArticles)
 }

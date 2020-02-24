@@ -86,7 +86,7 @@ export default {
       this.loading = true
 
       try {
-        this.dataSource = await getArticles()
+        this.dataSource = await getArticles({})
       } catch (e) {
         console.warn(e)
         this.$message.error('获取列表失败')

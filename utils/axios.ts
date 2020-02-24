@@ -8,7 +8,8 @@ const config = {
 }
 
 const ax = axios.create({
-  baseURL: config.API_ROOT
+  baseURL: config.API_ROOT,
+  timeout: 5000
 })
 
 // 拦截器

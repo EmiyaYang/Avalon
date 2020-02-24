@@ -19,5 +19,10 @@ Vue.filter('moment', function(
     return ''
   }
 
+  // 尝试转为时间戳
+  if (!Number.isNaN(Number(dataStr))) {
+    dataStr = Number(dataStr)
+  }
+
   return moment(dataStr).format(pattern)
 })

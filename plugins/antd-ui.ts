@@ -8,8 +8,11 @@ import {
   Checkbox,
   Input,
   Spin,
-  Icon
+  Icon,
+  message
 } from 'ant-design-vue'
+
+Vue.prototype.$message = message
 
 Vue.use(Icon)
 Vue.use(Spin)

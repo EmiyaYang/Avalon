@@ -45,7 +45,7 @@
                     </a-tag>
                   </section>
                   <span class="list-item-header__time">{{
-                    item.modifyTime | moment('YYYY-MM-DD')
+                    item.updatedAt | moment('YYYY-MM-DD')
                   }}</span>
                 </section>
               </template>
@@ -59,7 +59,7 @@
 
 <script>
 import { getConfig } from './config'
-import ghRequest from '@/api/ghRequest'
+import { getArticles } from '@/apis/articles'
 
 /**
  * 1. 视图切换: a. 列表 b. 卡片
@@ -72,28 +72,7 @@ export default {
       keyword: '',
       selectedTags: [],
       tagsOptions: [],
-      dataSource: [
-        {
-          id: 123,
-          title: 'Ant Design Title 1',
-          tags: ['css', 'js'],
-          modifyTime: 1582268795162,
-          description:
-            'Ant Design, a design language for background applications, is refined by Ant UED Team'
-        },
-        {
-          id: 1,
-          title: 'Ant Design Title 2'
-        },
-        {
-          id: 2,
-          title: 'Ant Design Title 3'
-        },
-        {
-          id: 3,
-          title: 'Ant Design Title 4'
-        }
-      ],
+      dataSource: [],
       loading: false
     }
   },
@@ -107,18 +86,7 @@ export default {
       this.loading = true
 
       try {
-        const data = await ghRequest(`
-         query {
-          getArticles{
-              _id
-              id
-              title
-              type
-              content
-          }
-        }
-        `)
-        this.dataSource = data.getArticles
+        this.dataSource = await getArticles()
       } catch (e) {
         console.warn(e)
         this.$message.error('获取列表失败')

@@ -9,6 +9,7 @@ import {
   Input,
   Spin,
   Icon,
+  Carousel,
   message
 } from 'ant-design-vue'
 
@@ -23,3 +24,4 @@ Vue.use(Table)
 Vue.use(Form)
 Vue.use(Checkbox)
 Vue.use(Input)
+Vue.use(Carousel)

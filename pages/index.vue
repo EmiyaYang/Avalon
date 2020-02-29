@@ -1,15 +1,18 @@
 <template>
   <section class="container">
+    <MindMapList class="container__mindmap" />
     <ArticleList class="container__list" />
   </section>
 </template>
 
 <script>
+import MindMapList from '@/components/MindMapList'
 import ArticleList from '@/components/ArticleList'
 
 export default {
   components: {
-    ArticleList
+    ArticleList,
+    MindMapList
   }
 }
 </script>

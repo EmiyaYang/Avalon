@@ -8,11 +8,12 @@
       >
         <template #label="option">
           <a-tag class="checkbox-tag">
-            {{ option.value }}
+            {{ option.$label }}
           </a-tag>
         </template>
       </a-checkbox-group>
       <a-input-search
+        v-model="keyword"
         placeholder="输入搜索关键词"
         class="search-input"
         @search="handleSearch"
@@ -33,15 +34,9 @@
                   >
                     {{ item.title }}
                   </nuxt-link>
-                  <!-- <a
-                    class="list-item-header__title"
-                    href="https://www.antdv.com/"
-                  >
-                    {{ item.title }}
-                  </a-spin> -->
                   <section class="list-item-header__tags">
-                    <a-tag v-for="tag in item.tags" :key="tag">
-                      {{ tag }}
+                    <a-tag v-for="tag in item.tags" :key="tag.id">
+                      {{ tag.name }}
                     </a-tag>
                   </section>
                   <span class="list-item-header__time">{{
@@ -60,6 +55,7 @@
 <script>
 import { getConfig } from './config'
 import { getArticles } from '@/apis/articles'
+import { getTags } from '@/apis/tags'
 
 /**
  * 1. 视图切换: a. 列表 b. 卡片
@@ -79,14 +75,31 @@ export default {
   created() {
     Object.assign(this, getConfig.call(this))
 
+    this.getTags()
     this.handleSearch()
   },
   methods: {
+    async getTags() {
+      try {
+        const data = await getTags({})
+
+        this.tagsOptions = data.map(item => ({
+          $label: item.name,
+          value: item.id
+        }))
+      } catch (e) {
+        console.warn(e)
+        this.$message.error('获取标签失败')
+      }
+    },
     async handleSearch() {
       this.loading = true
 
       try {
-        this.dataSource = await getArticles({})
+        this.dataSource = await getArticles({
+          keyword: this.keyword,
+          tags: this.selectedTags
+        })
       } catch (e) {
         console.warn(e)
         this.$message.error('获取列表失败')

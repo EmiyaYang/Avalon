@@ -31,14 +31,14 @@ const ax = axios.create({
 // )
 
 ax.interceptors.response.use(
-  (response) => {
+  response => {
     // if (response && response.data.code !== 1) {
     //   if (window) window.alert('出错了：' + response.data.message);
     // }
 
     return response.data
   },
-  (error) => {
+  error => {
     if (!error.response) {
       // 请求超时状态
       if (error.message.includes('timeout')) {

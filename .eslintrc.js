@@ -24,6 +24,7 @@ module.exports = {
     'no-console': 0,
     'space-before-function-paren': 0,
     // 重复定义了 @typescript-eslint/no-unused-vars
-    'no-unused-vars': 0
+    'no-unused-vars': 0,
+    'arrow-parens': 0
   }
 }

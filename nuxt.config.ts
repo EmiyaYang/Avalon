@@ -29,7 +29,7 @@ export default {
    ** Global CSS, included in every pages
    * https://nuxtjs.org/api/configuration-css#the-css-property
    */
-  css: ['@/assets/styles/global.css'],
+  css: ['@/assets/styles/global.less', '@/assets/styles/rewrites.less'],
 
   /**
    * inject some variables and mixins

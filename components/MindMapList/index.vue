@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import MindMap from '@/components/common/MindMap'
-
 const mockData = {
   id: 'Modeling Methods',
   children: [
@@ -82,7 +80,9 @@ const mockData = {
 
 export default {
   components: {
-    MindMap
+    // https://stackoverflow.com/questions/59347414/why-is-my-client-only-component-in-nuxt-complaining-that-window-is-not-define
+    MindMap: () =>
+      process.client ? import('@/components/common/MindMap') : null
   },
   data() {
     return {

@@ -1,10 +1,10 @@
 # Avalon
 
-> My perfect Nuxt.js project
+博客, 不止于博客.
 
-## Build Setup
+## 启动
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 
@@ -19,4 +19,12 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## 实现细节
+
+### graphql + axios
+
+1. yarn add graphql graphql-tag
+2. webpack config
+3. ts typing \*.graphql
+4. import \*.graphql
+5. import { print } from 'graphql/language/printer'

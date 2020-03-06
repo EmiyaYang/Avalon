@@ -1,0 +1,34 @@
+query getArticleById($id: ID) {
+  getArticleById(id: $id) {
+    _id
+    id
+    title
+    type
+    tags {
+      name
+      id
+      _id
+    }
+    content
+    description
+    createdAt
+    updatedAt
+  }
+}
+
+query getArticles($limit: Int, $keyword: String, $tags: [ID!]) {
+  getArticles(dto: { limit: $limit, keyword: $keyword, tags: $tags }) {
+    _id
+    id
+    title
+    type
+    tags {
+      name
+      id
+      _id
+    }
+    content
+    createdAt
+    updatedAt
+  }
+}

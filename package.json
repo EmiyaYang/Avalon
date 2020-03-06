@@ -27,6 +27,8 @@
     "@nuxtjs/axios": "^5.9.5",
     "ant-design-vue": "^1.1.10",
     "consola": "^2.11.3",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
     "koa": "^2.11.0",
     "nuxt": "^2.0.0"
   },
@@ -55,6 +57,7 @@
     "less-loader": "^5.0.0",
     "lint-staged": "^10.0.0",
     "prettier": "^1.19.1",
+    "raw-loader": "^4.0.0",
     "stylelint": "^10.1.0",
     "vue-jest": "^4.0.0-0"
   }

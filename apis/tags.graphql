@@ -1,0 +1,7 @@
+query getTags {
+  getTags {
+    id
+    _id
+    name
+  }
+}

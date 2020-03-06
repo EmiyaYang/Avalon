@@ -99,21 +99,28 @@ export default {
         //   'primary-color': '#6389e1',
         // }
       }
-    }
+    },
     /*
      ** You can extend webpack config here
      */
-    // extend(
-    //   _config: any,
-    //   ctx: { isClient: boolean; loaders: { vue: any; less: any } }
-    // ) {
-    // ctx.loaders.less.javascriptEnabled = true
-    // ctx.loaders.less.modifyVars = {
-    //   'primary-color': 'tomato'
-    // }
-    // Extend only webpack config for client-bundle
-    // if (ctx.isClient) {
-    // }
-    //   }
+    extend(config: any, ctx: { isDev: boolean; isClient: boolean }) {
+      config.module.rules.push({
+        test: /\.txt$/i,
+        exclude: /node_modules/,
+        loader: 'raw-loader'
+      })
+
+      config.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      })
+
+      config.resolve.extensions.push('.graphql', '.txt')
+
+      if (ctx.isDev && ctx.isClient) {
+        //
+      }
+    }
   }
 }

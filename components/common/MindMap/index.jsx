@@ -1,5 +1,7 @@
 import G6 from '@antv/g6'
-import setup from './behaviors'
+import { setup, collapseExpand } from './behaviors'
+
+const FIX_PADDING = 50
 
 export default {
   props: {
@@ -91,10 +93,23 @@ export default {
 
       this.updateGraph()
     },
+    getGraph() {
+      return this.graph
+    },
+    resize(fullscreen) {
+      const container = document.getElementById(this.id)
+
+      const { width, height } = container.getBoundingClientRect()
+
+      this.graph.setMode(fullscreen ? 'fullscreen' : 'default')
+      this.graph.changeSize(width, height)
+      this.graph.render()
+      this.graph.fitView(FIX_PADDING)
+    },
     updateGraph() {
       this.graph.data(this.data)
       this.graph.render()
-      this.graph.fitView()
+      this.graph.fitView(FIX_PADDING)
     }
   },
 
@@ -114,20 +129,8 @@ function getGraph(id) {
     width,
     height,
     modes: {
-      default: [
-        {
-          type: 'collapse-expand',
-          onChange: function onChange(item, collapsed) {
-            const data = item.getModel()
-
-            data.collapsed = collapsed
-            return true
-          }
-        },
-        'custom',
-        'drag-canvas'
-        // 'zoom-canvas'
-      ]
+      default: [collapseExpand, 'node-click', 'drag-canvas'],
+      fullscreen: [collapseExpand, 'drag-canvas', 'zoom-canvas']
     },
     defaultNode: {
       size: 26,
@@ -137,7 +140,8 @@ function getGraph(id) {
       ],
       style: {
         fill: '#C6E5FF',
-        stroke: '#5B8FF9'
+        stroke: '#5B8FF9',
+        cursor: 'pointer'
       }
     },
     defaultEdge: {

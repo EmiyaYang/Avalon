@@ -1,8 +1,8 @@
 import G6 from '@antv/g6'
 import Vue from 'vue/types/vue'
 
-export default function setup(this: Vue) {
-  G6.registerBehavior('custom', {
+export const setup = function(this: Vue) {
+  G6.registerBehavior('node-click', {
     getEvents() {
       return {
         'node:click': 'onNodeClick',
@@ -28,4 +28,14 @@ export default function setup(this: Vue) {
       // TODO
     }
   })
+}
+
+export const collapseExpand = {
+  type: 'collapse-expand',
+  onChange: function onChange(item: any, collapsed: boolean) {
+    const data = item.getModel()
+
+    data.collapsed = collapsed
+    return true
+  }
 }

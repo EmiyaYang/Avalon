@@ -1,7 +1,16 @@
 <template>
-  <a-spin :spinning="loading" class="mindmap">
-    <client-only placeholder="正在加载......">
-      <a-carousel arrows>
+  <a-spin
+    :spinning="loading"
+    :class="{ mindmap: true, 'mindmap--fullscreen': isFullScreen }"
+  >
+    <a-icon
+      class="mindmap__fullscreen"
+      :type="isFullScreen ? 'fullscreen-exit' : 'fullscreen'"
+      @click="handleFullScreen"
+    />
+
+    <client-only placeholder="正在加载......" style="height: 100%;">
+      <a-carousel arrows style="height: 100%;">
         <div
           slot="prevArrow"
           class="custom-slick-arrow"
@@ -13,9 +22,15 @@
           <a-icon type="right-circle" />
         </div>
 
-        <div v-for="(item, index) in mindMapList" :key="item.id + index">
+        <div
+          v-for="(item, index) in mindMapList"
+          :key="item.id + index"
+          style="height: 100%;"
+        >
           <MindMap
             :id="item.id + index"
+            ref="MindMap"
+            class="canvas-wrapper"
             :data="item"
             @node:click="handleNodeClick"
           />
@@ -37,7 +52,8 @@ export default {
   data() {
     return {
       loading: false,
-      mindMapList: []
+      mindMapList: [],
+      isFullScreen: false
     }
   },
   created() {
@@ -60,6 +76,15 @@ export default {
     },
     handleNodeClick({ link }) {
       this.$router.push({ name: 'articles-id', params: { id: link } })
+    },
+    handleFullScreen() {
+      this.isFullScreen = !this.isFullScreen
+
+      setTimeout(() => {
+        this.$refs.MindMap.forEach(comp => {
+          comp.resize(this.isFullScreen)
+        })
+      })
     }
   }
 }
@@ -67,6 +92,41 @@ export default {
 <style lang="less" scoped>
 .mindmap {
   margin: @padding-lg 0;
+  position: relative;
+
+  &--fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: white;
+    z-index: 10;
+    // overflow: hidden;
+    height: 100vh;
+
+    .canvas-wrapper {
+      width: 100%;
+      height: 100vh !important;
+    }
+
+    /deep/ .ant-spin-container,
+    /deep/ .slick-slider,
+    /deep/ .slick-list,
+    /deep/ .slick-track,
+    /deep/ .slick-slide {
+      height: 100% !important;
+    }
+  }
+
+  &__fullscreen {
+    position: absolute;
+    top: @padding-sm;
+    right: @padding-sm;
+    z-index: 1;
+    font-size: 20px;
+  }
 
   /deep/ .ant-carousel {
     .slick-slide {
@@ -75,6 +135,10 @@ export default {
       line-height: 160px;
       // background: ;
       overflow: hidden;
+    }
+
+    .canvas-wrapper {
+      height: 500px;
     }
   }
 

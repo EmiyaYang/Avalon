@@ -1,5 +1,5 @@
 <template>
-  <section class="mindmap">
+  <a-spin :spinning="loading" class="mindmap">
     <client-only placeholder="正在加载......">
       <a-carousel arrows>
         <div
@@ -14,69 +14,19 @@
         </div>
 
         <div v-for="(item, index) in mindMapList" :key="item.id + index">
-          <MindMap :id="item.id + index" :data="item" />
+          <MindMap
+            :id="item.id + index"
+            :data="item"
+            @node:click="handleNodeClick"
+          />
         </div>
       </a-carousel>
     </client-only>
-  </section>
+  </a-spin>
 </template>
 
 <script>
-const mockData = {
-  id: 'Modeling Methods',
-  children: [
-    {
-      id: 'Classification',
-      children: [
-        { id: 'Logistic regression' },
-        { id: 'Linear discriminant analysis' },
-        { id: 'Rules' },
-        { id: 'Decision trees' },
-        { id: 'Naive Bayes' },
-        { id: 'K nearest neighbor' },
-        { id: 'Probabilistic neural network' },
-        { id: 'Support vector machine' }
-      ]
-    },
-    {
-      id: 'Consensus',
-      children: [
-        {
-          id: 'Models diversity',
-          children: [
-            { id: 'Different initializations' },
-            { id: 'Different parameter choices' },
-            { id: 'Different architectures' },
-            { id: 'Different modeling methods' },
-            { id: 'Different training sets' },
-            { id: 'Different feature sets' }
-          ]
-        },
-        {
-          id: 'Methods',
-          children: [
-            { id: 'Classifier selection' },
-            { id: 'Classifier fusion' }
-          ]
-        },
-        {
-          id: 'Common',
-          children: [{ id: 'Bagging' }, { id: 'Boosting' }, { id: 'AdaBoost' }]
-        }
-      ]
-    },
-    {
-      id: 'Regression',
-      children: [
-        { id: 'Multiple linear regression' },
-        { id: 'Partial least squares' },
-        { id: 'Multi-layer feedforward neural network' },
-        { id: 'General regression neural network' },
-        { id: 'Support vector regression' }
-      ]
-    }
-  ]
-}
+import { getArticles } from '@/apis/articles'
 
 export default {
   components: {
@@ -86,7 +36,30 @@ export default {
   },
   data() {
     return {
-      mindMapList: [mockData, mockData, mockData]
+      loading: false,
+      mindMapList: []
+    }
+  },
+  created() {
+    this.query()
+  },
+  methods: {
+    async query() {
+      this.loading = true
+
+      try {
+        const data = await getArticles({
+          type: 'TREE'
+        })
+
+        this.mindMapList = data.map(item => JSON.parse(item.content))
+      } catch (e) {
+        console.warn(e)
+      }
+      this.loading = false
+    },
+    handleNodeClick({ link }) {
+      this.$router.push({ name: 'articles-id', params: { id: link } })
     }
   }
 }

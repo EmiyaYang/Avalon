@@ -16,8 +16,15 @@ query getArticleById($id: ID) {
   }
 }
 
-query getArticles($limit: Int, $keyword: String, $tags: [ID!]) {
-  getArticles(dto: { limit: $limit, keyword: $keyword, tags: $tags }) {
+query getArticles(
+  $limit: Int
+  $keyword: String
+  $tags: [ID!]
+  $type: ArticleType
+) {
+  getArticles(
+    dto: { limit: $limit, keyword: $keyword, tags: $tags, type: $type }
+  ) {
     _id
     id
     title

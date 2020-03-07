@@ -115,8 +115,7 @@ export default {
         exclude: /node_modules/,
         loader: 'graphql-tag/loader'
       })
-
-      config.resolve.extensions.push('.graphql', '.txt')
+      config.resolve.extensions.push('.ts', '.graphql', '.txt')
 
       if (ctx.isDev && ctx.isClient) {
         //

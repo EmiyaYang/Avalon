@@ -1,4 +1,5 @@
 import G6 from '@antv/g6'
+import setup from './behaviors'
 
 export default {
   props: {
@@ -48,6 +49,9 @@ export default {
   //   }
   // },
 
+  created() {
+    setup.call(this)
+  },
   mounted() {
     this.init()
   },
@@ -114,13 +118,15 @@ function getGraph(id) {
         {
           type: 'collapse-expand',
           onChange: function onChange(item, collapsed) {
-            const data = item.get('model').data
+            const data = item.getModel()
+
             data.collapsed = collapsed
             return true
           }
         },
-        'drag-canvas',
-        'zoom-canvas'
+        'custom',
+        'drag-canvas'
+        // 'zoom-canvas'
       ]
     },
     defaultNode: {

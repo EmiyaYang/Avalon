@@ -97,6 +97,10 @@ export default {
       return this.graph
     },
     resize(fullscreen) {
+      if (!this.graph) {
+        return
+      }
+
       const container = document.getElementById(this.id)
 
       const { width, height } = container.getBoundingClientRect()
